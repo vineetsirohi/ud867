@@ -1,0 +1,4 @@
+<resources>
+    <string name="joke_activity_label">Joke Activity</string>
+    <string name="no_jokes_to_show">No jokes to show!</string>
+</resources>
