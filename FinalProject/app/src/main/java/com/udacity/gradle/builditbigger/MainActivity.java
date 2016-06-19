@@ -45,7 +45,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
-//        String joke = new Jokes().getJoke();
         EndPointsAsyncTask endPointsAsyncTask = new EndPointsAsyncTask();
         endPointsAsyncTask.setAsyncTaskCallback(new EndPointsAsyncTask.AsyncTaskCallback() {
             @Override
@@ -57,7 +56,6 @@ public class MainActivity extends ActionBarActivity {
         });
         endPointsAsyncTask.execute(new Pair<Context, String>(MainActivity.this, "name"));
 
-//        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
     }
 
 
