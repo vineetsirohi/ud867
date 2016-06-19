@@ -8,20 +8,25 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.vineet.jokesbackend.myApi.MyApi;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 
 import java.io.IOException;
 
-import in.vasudev.jokeactivitylib.JokeDisplayActivity;
-
 /**
  * Created by vineet on 18-Jun-16.
  */
-class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+class EndPointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+
+    public interface AsyncTaskCallback{
+
+        void callback(String result);
+    }
+
     private static MyApi myApiService = null;
     private Context context;
+
+    private AsyncTaskCallback mAsyncTaskCallback;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -58,9 +63,15 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     @Override
     protected void onPostExecute(String result) {
 //        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-        Intent sendIntent = new Intent(context, JokeDisplayActivity.class);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, result);
-        context.startActivity(sendIntent);
 
+
+        if (mAsyncTaskCallback != null) {
+            mAsyncTaskCallback.callback(result);
+            mAsyncTaskCallback = null;
+        }
+    }
+
+    public void setAsyncTaskCallback(AsyncTaskCallback asyncTaskCallback) {
+        mAsyncTaskCallback = asyncTaskCallback;
     }
 }
