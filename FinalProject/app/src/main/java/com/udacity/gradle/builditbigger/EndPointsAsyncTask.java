@@ -63,8 +63,6 @@ class EndPointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     @Override
     protected void onPostExecute(String result) {
 //        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-
-
         if (mAsyncTaskCallback != null) {
             mAsyncTaskCallback.callback(result);
             mAsyncTaskCallback = null;

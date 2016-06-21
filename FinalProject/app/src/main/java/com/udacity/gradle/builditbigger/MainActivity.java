@@ -9,16 +9,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import in.vasudev.jokeactivitylib.JokeDisplayActivity;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
 
@@ -45,10 +50,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
+        mProgressBar.setVisibility(View.VISIBLE);
+
         EndPointsAsyncTask endPointsAsyncTask = new EndPointsAsyncTask();
         endPointsAsyncTask.setAsyncTaskCallback(new EndPointsAsyncTask.AsyncTaskCallback() {
             @Override
             public void callback(String result) {
+                mProgressBar.setVisibility(View.GONE);
                 Intent sendIntent = new Intent(MainActivity.this, JokeDisplayActivity.class);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, result);
                 startActivity(sendIntent);
