@@ -17,3 +17,22 @@ allprojects {
         jcenter()
     }
 }
+
+task runGCEServerWhileRunningTests {
+    description "Run GCE local server with tests"
+
+    project(":jokesbackend").afterEvaluate { jokesbackend ->
+        jokesbackend.extensions.appengine.daemon = true
+    }
+
+    dependsOn =
+            ["jokesbackend:appengineRun", "app:connectedFreeDebugAndroidTest"]
+    project.task('app:connectedFreeDebugAndroidTest').mustRunAfter project.task('jokesbackend:appengineRun')
+
+    doLast {
+        println "Tests complete"
+    }
+
+    finalizedBy "jokesbackend:appengineStop"
+}
+
