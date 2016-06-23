@@ -34,7 +34,7 @@ dependencies {
     // Added for AdMob
     compile project(":jokeactivitylib")
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.google.android.gms:play-services:9.0.2'
+    freeCompile 'com.google.android.gms:play-services:9.0.2'
     compile project(path: ':jokesbackend', configuration: 'android-endpoints')
     compile 'com.android.support:multidex:1.0.0'
 
